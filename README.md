@@ -8,7 +8,7 @@ For now it only includes the typesystem.
 Compiling 
 ====
 
-In order to compile the code you need to have a working haskell system installed. Moreover for the parser and the lexer _Anny_ makes uses of Happy and Alex. If you have GHC installed you can install Happy and Alex making use of cabal with the following commands:
+In order to compile the code you need to have a working haskell system installed. Moreover, for the parser and the lexer _Anny_ makes uses of Happy and Alex. If you have GHC installed you can install Happy and Alex making use of cabal with the following commands:
 ````
 cabal install happy
 cable install alex
