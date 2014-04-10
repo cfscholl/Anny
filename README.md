@@ -2,6 +2,19 @@ Anny
 ====
 
 A simply typed lambda calculus with extensible annotation types.
+For now it only include the typesystem.  
+
+
+Compiling 
+====
+
+In order to compile the code you need to have a working haskell system installed. Moreover for the parser and the lexer _Anny_ makes uses of Happy and Alex. If you have GHC installed you can install Happy and Alex making use of cabal with the following commands:
+````
+cabal install happy
+cable install alex
+```` 
+After this calling make should be sufficient to build _Anny_.
+The result should be an executable _anny_. 
 
 
 Example
@@ -21,7 +34,11 @@ rule [apple] * [peer] => [fruit];
 
 
 The final type of this expression is as expected _int[fruit]_.
+This particular example is included in the examples folder and can be tested as follows:   
 
-
+````
+Annotation Types$ ./anny examples/test.an
+int[fruit]
+````
 
 
