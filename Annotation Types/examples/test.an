@@ -1,5 +1,4 @@
-rule [m] + [m] => [m];
-rule [m] * [m] => [m2];
-rule [u] <: [m];
-((\x:int[m].\y:int[m].x*y)3[m])4[u]
+rule [apple] + [apple] => [apple];
+rule [apple] * [peer] => [fruit];
+((\x:int[apple].\y:int[peer].(x+x)*y)3[apple])4[peer]
 
