@@ -2,7 +2,7 @@ Anny
 ====
 
 A simply typed lambda calculus with extensible annotation types.
-For now it only include the typesystem.  
+For now it only includes the typesystem.  
 
 
 Compiling 
