@@ -1,0 +1,3 @@
+rule [m]*[m] => [m2];
+rule [m]+[m] => [m];
+((\x:int[m].\y:int[m].(x+x)*y)3[m])4[m]
