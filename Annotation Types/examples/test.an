@@ -1,4 +1,7 @@
-rule [apple] + [apple] => [apple];
-rule [apple] * [pear] => [fruit];
-((\x:int[apple].\y:int[pear].(x+x)*y)3[apple])4[pear]
+rule [apple] +  [apple] => [apple];
+rule [apple] +  [pear]  => [fruit];
+rule [pear]  +  [pear]  => [pear];
+
+((\x:int[apple].\y:int[apple].(x+x)+y) 3[apple]) 4[apple]
+
 

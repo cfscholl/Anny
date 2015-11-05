@@ -27,6 +27,9 @@ tokens :-
   "."                           { \s -> TokenDot              }
   "->"                          { \s -> TokenArrow            }   
   "#f"                          { \s -> TokenFalse            }  
+  "succ"                        { \s -> TokenSucc             }
+  "pred"                        { \s -> TokenPred             }
+  "isZero"                      { \s -> TokenZero             }
   bool 				{ \s -> TokenTbool            }   
   \\                            { \s -> TokenLambda           }
   [\+\-\*\<\>\/] | "=="         { \s -> TokenOp s             }
@@ -42,6 +45,9 @@ tokens :-
 
 data Token = 
      	   TokenTint
+	   | TokenSucc
+	   | TokenPred
+	   | TokenZero
            | TokenDot
 	   | TokenTbool
 	   | TokenTrue

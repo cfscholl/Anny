@@ -5,14 +5,16 @@ import Debug.Trace
 type Sym = String
 --  e ::= b[a] | e⊕e | x | λx:t.e | e e
 data Expr
-    = EInt Int Sym
-    | EBool Bool Sym
-    | Rule Sym Operator Sym Sym
+    = EInt Int 
+    | EBool Bool 
     | Begin Expr Expr
     | Binop Expr Operator  Expr
     | Var Sym
     | Lam Sym Type Expr
     | App Expr Expr
+    | Succ Expr
+    | Pred Expr
+    | Zero Expr
     deriving (Show)
 
 data Operator
@@ -38,15 +40,20 @@ instance Show Type where
          show (TArrow t1 t2) = (show t1) ++ "->" ++ (show t2)
 
 
-fst3 (a,b,c) = a
-scn3 (a,b,c) = b
-thr3 (a,b,c) = c
-
+fst3(a,b,c) = a
 fsta [h] = h
 
 type Env k v = [(k, v)]
 extend :: Env k v -> (k, v) -> Env k v
 extend env xt = xt : env
+
+
+checkNumOperation name e env renv =
+   let (te,enve,renve) = check env renv e
+      in
+      case te of 
+	TInt -> (TInt,enve,renve)
+	_    -> error $  "Operation" ++  "should be applied to an integer"
 
 check env renv (EInt _ s) = ((AnnType TInt s),env,renv)
 
@@ -62,6 +69,17 @@ check env renv (Begin e1 e2) =
       let (_,enve1,renve1) = check env renv e1
       in
          (check enve1 renve1 e2)
+
+check env renv (Succ e) = checkNumOperation "succ" e env renv 
+check env renv (Pred e) = checkNumOperation "pred" e env renv 
+
+check env renv (Zero e) =
+   let (te,enve,renve) = check env renv e
+      in
+      case te of 
+	TInt -> (TBool,enve,renve)
+	_    -> error $  "Operation" ++  "should be applied to an integer"
+
 
 check env renv  (Lam s t e) =
       let (tb,env1,renv2) = check (extend env (s,t)) renv e
@@ -86,6 +104,9 @@ check env renv (Binop e1 op e2) =
                       0  -> error ("Could not find an annotation type for " ++ (show op) ++ " " ++ (show e1) ++ (show e2) )
                       1  -> let (opx, (sx,xy,sr)) = (fsta matches) in ((AnnType t1 sr),enve2,renve2)
                       _  ->  error ("Non deterministic type " ++ (show op) ++ " " ++ (show e1) ++ (show e2) )
-                     
+
+
+
+
 
 

@@ -29,7 +29,10 @@ import Main.Expr
     ']'      { TokenSquareBrackRight }
     type     { TokenType             }
     int      { TokenInt $$           }
-
+    'succ'   { TokenSucc             }
+    'pred'   { TokenPred             }
+    'isZero' { TokenZero             }
+ 
 %left '+' '-'
 %left '*' '/'
 
@@ -48,6 +51,12 @@ Expr :   int '[' var ']' {  (EInt $1 $3) }
      { $2 }
      | Expr Expr
      { App $1 $2 }
+     | 'succ' Expr
+     {  Succ $2 }
+     | 'pred' Expr
+     {  Pred $2 }
+     | 'isZero' Expr
+     {  Zero $2 }
      | 'rule'   '[' var ']' op  '[' var ']'  '=>' '[' var ']'
      {  (Rule $3 (opEnc $5) $7 $11) }
 
